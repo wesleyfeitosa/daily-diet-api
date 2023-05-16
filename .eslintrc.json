@@ -1,0 +1,37 @@
+{
+  "env": {
+    "es2022": true,
+    "node": true
+  },
+  "extends": "xo",
+  "plugins": [
+    "import"
+  ],
+  "overrides": [
+    {
+      "extends": [
+        "xo-typescript"
+      ],
+      "files": [
+        "*.ts",
+        "*.tsx" 
+      ],
+      "rules": {
+        "object-curly-spacing": ["error", "always"],
+        "@typescript-eslint/object-curly-spacing": "off",
+        "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+        "import/order": ["error", {
+          "groups": ["builtin", "external", "internal"],
+          "newlines-between": "always",
+          "alphabetize": {"order": "asc", "caseInsensitive": true}
+        }]
+      }
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+  }
+}
