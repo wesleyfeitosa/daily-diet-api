@@ -24,11 +24,17 @@ export class CreateMealHandler {
 
 			const { description, isOnDiet, mealTime, name, userId } = resultValidation.data;
 
+			const userFinded = await knex('users').select().where({ id: userId }).first();
+
+			if (!userFinded) {
+				return await reply.status(404).send({ statusCode: 404, message: 'User not found' });
+			}
+
 			const [createdMeal] = await knex('meals').insert({
 				id: randomUUID(),
 				name,
 				description,
-				meal_time: mealTime.toDateString(),
+				meal_time: mealTime.toISOString(),
 				is_on_diet: isOnDiet,
 				user_id: userId,
 			}).returning('*');
