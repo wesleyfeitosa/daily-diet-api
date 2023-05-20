@@ -3,9 +3,9 @@
     "es2022": true,
     "node": true
   },
-  "extends": "xo",
+  "extends": ["xo", "plugin:prettier/recommended"],
   "plugins": [
-    "import"
+    "import", "prettier"
   ],
   "overrides": [
     {
@@ -20,6 +20,7 @@
         "object-curly-spacing": ["error", "always"],
         "@typescript-eslint/object-curly-spacing": "off",
         "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/indent": "off",
         "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
         "import/order": ["error", {
           "groups": ["builtin", "external", "internal"],

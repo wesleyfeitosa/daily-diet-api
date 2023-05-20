@@ -1,4 +1,4 @@
-import { type FastifyRequest, type FastifyReply, type RouteHandlerMethod } from 'fastify';
+import { type FastifyRequest, type FastifyReply } from 'fastify';
 import { z } from 'zod';
 
 import { type DatabaseError, knex } from '../database';

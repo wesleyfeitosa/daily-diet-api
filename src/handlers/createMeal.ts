@@ -30,14 +30,16 @@ export class CreateMealHandler {
 				return await reply.status(404).send({ statusCode: 404, message: 'User not found' });
 			}
 
-			const [createdMeal] = await knex('meals').insert({
-				id: randomUUID(),
-				name,
-				description,
-				meal_time: mealTime.toISOString(),
-				is_on_diet: isOnDiet,
-				user_id: userId,
-			}).returning('*');
+			const [createdMeal] = await knex('meals')
+				.insert({
+					id: randomUUID(),
+					name,
+					description,
+					meal_time: mealTime.toISOString(),
+					is_on_diet: isOnDiet,
+					user_id: userId,
+				})
+				.returning('*');
 
 			return await reply.status(201).send(createdMeal);
 		} catch (error) {

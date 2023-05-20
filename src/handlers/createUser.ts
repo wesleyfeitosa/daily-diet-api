@@ -26,15 +26,24 @@ export class CreateUserHandler {
 
 			const passwordHashed = await hash(password, 10);
 
-			const [createdUser] = await knex('users').insert({
-				id: randomUUID(),
-				email,
-				password: passwordHashed,
-				name,
-				weight,
-			}).returning('*');
+			const [createdUser] = await knex('users')
+				.insert({
+					id: randomUUID(),
+					email,
+					password: passwordHashed,
+					name,
+					weight,
+				})
+				.returning('*');
 
-			return await reply.status(201).send({ id: createdUser.id, email: createdUser.email, name: createdUser.name, weight: createdUser.weight, weighte: createdUser.weight, weighteee: createdUser.weight });
+			return await reply.status(201).send({
+				id: createdUser.id,
+				email: createdUser.email,
+				name: createdUser.name,
+				weight: createdUser.weight,
+				weighte: createdUser.weight,
+				weighteee: createdUser.weight,
+			});
 		} catch (error) {
 			const databaseError = error as DatabaseError;
 
