@@ -3,6 +3,7 @@ import { type Knex } from 'knex';
 export interface User {
 	id: string;
 	email: string;
+	password: string;
 	name: string;
 	weight: number;
 	created_at: string;

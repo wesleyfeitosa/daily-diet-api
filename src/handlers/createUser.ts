@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
+import { hash } from 'bcrypt';
 import { type FastifyReply, type FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
@@ -10,6 +11,7 @@ export class CreateUserHandler {
 		try {
 			const createUserBodySchema = z.object({
 				email: z.string().email(),
+				password: z.string().min(6),
 				name: z.string().max(40),
 				weight: z.number(),
 			});
@@ -20,16 +22,19 @@ export class CreateUserHandler {
 				return await reply.status(400).send(resultValidation.error.message);
 			}
 
-			const { email, name, weight } = resultValidation.data;
+			const { email, password, name, weight } = resultValidation.data;
+
+			const passwordHashed = await hash(password, 10);
 
 			const [createdUser] = await knex('users').insert({
 				id: randomUUID(),
 				email,
+				password: passwordHashed,
 				name,
 				weight,
 			}).returning('*');
 
-			return await reply.status(201).send(createdUser);
+			return await reply.status(201).send({ id: createdUser.id, email: createdUser.email, name: createdUser.name, weight: createdUser.weight, weighte: createdUser.weight, weighteee: createdUser.weight });
 		} catch (error) {
 			const databaseError = error as DatabaseError;
 

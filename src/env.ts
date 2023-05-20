@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+
 import { config } from 'dotenv';
 import { z } from 'zod';
 
@@ -13,6 +13,7 @@ const envSchema = z.object({
 	DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
 	DATABASE_URL: z.string(),
 	PORT: z.coerce.number().default(3333),
+	JWT_SECRET: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
