@@ -6,17 +6,7 @@ import { type DatabaseError, knex } from '../database';
 export class ListMealsByUsersHandler {
 	async handler(request: FastifyRequest, reply: FastifyReply) {
 		try {
-			const listMealsByUserParamSchema = z.object({
-				userId: z.string().uuid(),
-			});
-
-			const resultValidation = listMealsByUserParamSchema.safeParse(request.params);
-
-			if (!resultValidation.success) {
-				return await reply.status(400).send(resultValidation.error.message);
-			}
-
-			const { userId } = resultValidation.data;
+			const userId = request.user.id;
 
 			const userFinded = await knex('users').select().where({ id: userId }).first();
 

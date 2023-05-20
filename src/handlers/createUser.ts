@@ -41,8 +41,6 @@ export class CreateUserHandler {
 				email: createdUser.email,
 				name: createdUser.name,
 				weight: createdUser.weight,
-				weighte: createdUser.weight,
-				weighteee: createdUser.weight,
 			});
 		} catch (error) {
 			const databaseError = error as DatabaseError;

@@ -8,12 +8,13 @@ import { knex, type DatabaseError } from '../database';
 export class CreateMealHandler {
 	async handler(request: FastifyRequest, reply: FastifyReply) {
 		try {
+			const userId = request.user.id;
+
 			const createMealBodySchema = z.object({
 				name: z.string().max(40),
 				description: z.string().max(320),
 				mealTime: z.coerce.date(),
 				isOnDiet: z.boolean(),
-				userId: z.string().uuid(),
 			});
 
 			const resultValidation = createMealBodySchema.safeParse(request.body);
@@ -22,7 +23,7 @@ export class CreateMealHandler {
 				return await reply.status(400).send(resultValidation.error.message);
 			}
 
-			const { description, isOnDiet, mealTime, name, userId } = resultValidation.data;
+			const { description, isOnDiet, mealTime, name } = resultValidation.data;
 
 			const userFinded = await knex('users').select().where({ id: userId }).first();
 
