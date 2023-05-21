@@ -1,5 +1,4 @@
 import { type FastifyRequest, type FastifyReply } from 'fastify';
-import { z } from 'zod';
 
 import { type DatabaseError, knex } from '../database';
 
@@ -14,7 +13,7 @@ export class ListMealsByUsersHandler {
 				return await reply.status(404).send({ statusCode: 404, message: 'User not found' });
 			}
 
-			const mealsFinded = await knex('meals').select().where({ user_id: userId });
+			const mealsFinded = await knex('meals').select().where({ user_id: userId }).orderBy('meal_time');
 
 			return await reply.status(200).send(mealsFinded);
 		} catch (error) {
