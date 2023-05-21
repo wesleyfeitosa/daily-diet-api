@@ -8,8 +8,6 @@ import { type CreateMealResponse, type LoginResponse } from './types';
 import { app } from '../src/app';
 
 describe('Meals routes', () => {
-	const mockEmail = faker.internet.email();
-
 	beforeAll(async () => {
 		await app.ready();
 	});
